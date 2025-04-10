@@ -14,7 +14,7 @@ app.post("/sum", async (req, res): Promise<any> => {
             message: "Sorry we don't support big numbers"
         })
     }
-    const result = a - b;
+    const result = a + b;
 
     const request = await prismaClient.request.create({
         data: {
@@ -22,6 +22,29 @@ app.post("/sum", async (req, res): Promise<any> => {
             b: b,
             answer: result,
             type: "ADD"
+        }
+    })
+    
+    res.json({ answer: result, id: request.id });
+})
+
+app.post("/multiply", async (req, res): Promise<any> => {
+    const a = req.body.a;
+    const b = req.body.b;
+    
+    if (a > 1000000 || b > 1000000) {
+        return res.status(422).json({
+            message: "Sorry we don't support big numbers"
+        })
+    }
+    const result = a * b;
+
+    const request = await prismaClient.request.create({
+        data: {
+            a: a,
+            b: b,
+            answer: result,
+            type: "MULTIPLY"
         }
     })
     
