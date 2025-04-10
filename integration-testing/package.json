@@ -1,0 +1,18 @@
+{
+  "name": "integration-testing",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/express": "^5.0.1",
+    "express": "^5.1.0",
+    "prisma": "^6.6.0",
+    "typescript": "^5.8.3"
+  }
+}
