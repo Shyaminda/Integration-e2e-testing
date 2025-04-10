@@ -16,17 +16,29 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Docker Buildx
+    - name: Set up Docker
       uses: docker/setup-buildx-action@v2
 
     - name: Set up Docker Compose
-      uses: docker/setup-qemu-action@v2
+      run: sudo apt-get update && sudo apt-get install -y docker-compose
 
-    - name: Ensure Docker Compose is available
-      run: docker-compose version
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: integration-testing
 
     - name: Copy .env.example to .env
-      run: cp ./integration-testing/.env.example ./integration-testing/.env
+      run: cp .env.example .env
+      working-directory: integration-testing
 
-    - name: Run integration script
-      run: cd integration-testing && npm run test:integration
+    - name: Make all scripts executable
+      run: chmod +x scripts/*
+      working-directory: integration-testing
+
+    - name: Run integration tests
+      run: npm run test:integration
+      working-directory: integration-testing
